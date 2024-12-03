@@ -1,0 +1,65 @@
+<% layout("/layouts/boilerplate") -%>
+
+<body>
+    <div class="row mt-2">
+    <div class="col-8 offset-2">
+    <h3>Create a New Listing</h3>
+    <form method="POST"  action="/listings" class=" needs-validation" novalidate enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input name="listing[title]" placeholder="Add catchy title" class="form-control" type="text" required>
+            <div class="valid-feedback">Title looks good</div>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="listing[description]" placeholder="enter the description" class="form-control" type="text" required></textarea>
+            <div class="invalid-feedback"> Please enter a short Description</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input name="listing[image]" placeholder="Upload image" class="form-control" type="file">
+        </div>
+
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label for="price" class="form-label">Price</label>
+                <input name="listing[price]" placeholder="1200" class="form-control"  required>
+                <div class="invalid-feedback"> Please enter a Valid price</div>
+
+            </div>
+            
+            <div class="mb-3 col-md-8">
+                <label for="country" class="form-label">Country</label>
+                <input name="listing[country]" placeholder="India" class="form-control" type="text" required>
+                <div class="invalid-feedback"> Please enter a Valid Country</div>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input name="listing[location]" placeholder="enter location " class="form-control"type="text" required>
+            <div class="invalid-feedback"> Please enter a Valid location</div>
+        </div>
+        
+        <!-- <div class="btn-group mb-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" >
+              Valid location type
+            </button>
+            <ul class="dropdown-menu" name="listing[category]">
+              <li><a class="dropdown-item" href="#">Mountains</a></li>
+              <li><a class="dropdown-item" href="#">Beach </a></li>
+              <li><a class="dropdown-item" href="#">Arctic </a></li>
+              <li><a class="dropdown-item" href="#">Farms </a></li>
+              <li><a class="dropdown-item" href="#">Bedrooms </a></li>
+              <li><a class="dropdown-item" href="#">Camping </a></li>
+              <li><a class="dropdown-item" href="#">Treehouses </a></li>
+            </ul>
+          </div class="invalid-feedback">-->
+        <br>
+         <button class="btn btn-dark add-btn">Add</button> 
+    </form>
+    <br>
+</div>
+</div>
+</body>

@@ -1,0 +1,93 @@
+<% layout("/layouts/boilerplate") -%>
+<script>
+    const maptoken = "<%=process.env.MAP_TOKEN%>"
+    const listing = <%- JSON.stringify(listingsData)%>
+</script>
+<body>
+
+    <div class="row mt-2">
+        <div class="col-8 offset-3 show-card">
+    <h3> <b><%= listingsData.title%></b></h3>
+</div>
+    <div class="card col-6 offset-3 listing-card">
+        <img src=" <%=listingsData.image.url%>" class="card-img show-img" alt="listingsimage">
+        <div class="card-body">
+            <p class="card-text"> Owned by <i><%= listingsData.owner.username%> </i></p>
+           <p class="card-text"> <%= listingsData.description%> </p>
+            <p class="card-text">&#8377; <%= listingsData.price.toLocaleString("en-IN")%> </p>
+            <p class="card-text"> <%= listingsData.location%> </p>
+            <p class="card-text"> <%= listingsData.country%> </p>
+            <p class="card-text"> <%= listingsData.category%> </p>
+
+        </div>
+      </div>
+    <br>
+    <%if(curr && listingsData.owner._id.equals(curr._id)){%>
+    <div class="btns">
+    <a href="/listings/<%=listingsData._id%>/edit" class="btn btn-dark  add-btn col-1 offset-3 ">Edit</a>  
+    <br><br>
+    <form method="POST"   action="/listings/<%=listingsData._id%>/?_method=DELETE">
+        <button class="btn btn-dark offset-5">Delete</button>
+    </form> 
+</div>
+<%}%>
+<div class="col-8 offset-3">
+    <hr>
+    <%if(curr){%>
+    <h4>Leave a Riview</h4>
+    <form action="/listings/<%=listingsData._id%>/riviews" method="POST" novalidate class="needs-validation">
+        <!-- <div>
+            <label for="rating" class="form-label ">Rating</label>
+            <input type="range" min="1" max="5" id="rating" name="riview[rating]" class="form-range" >
+        </div> -->
+        <fieldset class="starability-slot mb-1 h mt-3">
+            <input type="radio" id="no-rate" class="input-no-rate" name="riview[rating]" value="0" checked aria-label="No rating." />
+            <input type="radio" id="first-rate1" name="riview[rating]" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="riview[rating]" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="riview[rating]" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="riview[rating]" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="riview[rating]" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+          
+        <div class="mb-3">
+            <label for="comment" class="form-label">Comment</label>
+            <textarea name="riview[comment]" id="comment" cols="20" rows="5" class="form-control" required></textarea>
+            <div class="invalid-feedback"> Please Submit some comments for riviews!  </div>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-outline-dark">Submit</button>
+        </div>
+    </form>
+<%}%>
+<hr>
+
+<p><b>All Riviews</b></p>
+<div class="row ">
+    <% for(riview of listingsData.riviews){%>
+        <div class="card col-5 ms-3 mb-3">
+            <div class="card-body">
+                <h5 class="card-Title">@<%=riview.author.username%></h5>
+                <p class="card-text"><%=riview.comment%></p>
+                <p class="starability-result card-text" data-rating="<%=riview.rating%>"></p>
+                <form class="mb-3" method="POST" action="/listings/<%=listingsData._id%>/riviews/<%=riview._id%>?_method=DELETE">
+                    <button class="btn btn-sm btn-dark">Delete</button>
+                </form>
+            </div>
+        </div>
+        <% }%>
+</div>
+</div>
+<div class="col-8 offset-3 mb-3">
+<h3>Where you'll be</h3>
+<div id="map"></div>
+</div>
+</div>
+<!-- offset used for left spacing  -->
+<!-- col-1 used to indicate how many column does it cover -->
+
+<script src="/js/map.js"></script>
