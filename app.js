@@ -87,14 +87,6 @@ app.use((req,res,next) =>{
     next();
 });
 
-// app.get("/demouser",async(req,res)=>{
-//     let fakeUser = new User({
-//         email:"heydeepu@gmail.com",
-//         username:"DeeanshuSharma",
-//     });
-//     let registeredUser= await User.register(fakeUser,"helloWorld");
-//     res.send(registeredUser);
-// });
 
 app.use("/listings",listings);  //("/listings") ko match kiya jaygga listings ke sath jo routes se arhi hai.. 
 app.use("/listings/:id/riviews",riviews);
